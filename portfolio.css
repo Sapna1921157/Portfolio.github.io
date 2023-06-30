@@ -739,7 +739,7 @@ span {
     animation: none;
 }
 
-section:nth-child(odd) .animate.scroll,
+section:nth-child(even) .animate.scroll,
 .footer .animate.scroll{
     background: var(--second-bg-color);
 }
