@@ -760,6 +760,10 @@ section:nth-child(odd) .animate.scroll,
   font-size: 3.6rem;
 }
 
+.project .project-detail ul li {
+  font-size: 2rem;
+}
+
 .project .project-link .project-btn {
   width: 38%;
   padding: 1%;
@@ -768,6 +772,11 @@ section:nth-child(odd) .animate.scroll,
   background: #ff105e;
   color: white;
   margin-top: 2%;
+}
+
+.project .project-link .piano {
+  height: 50vh;
+  width: 40vh;
 }
 /*--- project section end---*/
 
