@@ -46,6 +46,10 @@ body {
   background: var(--bg-color);
 }
 
+.header {
+  background: var(--bg-color);
+}
+
 .logo {
   position: relative;
   font-size: 2.5rem;
@@ -752,31 +756,34 @@ section:nth-child(odd) .animate.scroll,
   align-items: center;
 }
 
+
+
 .project .project-link .analog-clock {
   height: 50vh;
+  border: solid var(--bg-color);
 }
 
 .project .project-detail .project-title {
   font-size: 3.6rem;
 }
 
-.project .project-detail ul li {
+.project .project-detail {
   font-size: 2rem;
 }
 
-.project .project-link .project-btn {
+.project .project-link  .project-btn {
   width: 38%;
   padding: 1%;
   font-size: 2rem;
   border-radius: 14px;
-  background: #ff105e;
+  background: var(--main-color);
   color: white;
   margin-top: 2%;
 }
 
-.project .project-link .piano {
+.project .project-link .Piano {
   height: 50vh;
-  width: 40vh;
+  width: 80vh;
 }
 /*--- project section end---*/
 
