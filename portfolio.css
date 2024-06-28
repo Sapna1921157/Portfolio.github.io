@@ -967,8 +967,8 @@ section:nth-child(odd) .animate.scroll,
         font-size: 14.5px;
         color: #d93025;
         text-align: left;
-        margin: -5px 0 10px;
-        display: none;
+        /* margin: -5px 0 10px; */
+        /* display: none; */
      }
 
      form .textarea-field .error-txt{
