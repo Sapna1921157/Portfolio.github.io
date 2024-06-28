@@ -959,3 +959,23 @@ section:nth-child(odd) .animate.scroll,
             width: 0;
         }
      }
+
+
+     /* Contact Form */
+
+     .field .error-txt{
+        font-size: 14.5px;
+        color: #d93025;
+        text-align: left;
+        margin: -5px 0 10px;
+        /* display: none; */
+     }
+
+     form .textarea-field .error-txt{
+        /* margin-top: -10px; */
+        position: absolute;
+        top: 295px;
+        left: 10px;
+
+     }
+
