@@ -296,6 +296,12 @@
 
            var body = "Name: " + name + "<br/> Email:" + email + "<br/> Contact Number:" + number + "<br/> Message:" + mess;
             
+           var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailPattern.test(email)) {
+                swal("Invalid Email", "Please enter a valid email address.", "error");
+                return;
+            }
+
            console.log(body);
             Email.send({
 
@@ -305,13 +311,13 @@
              Host : "smtp.elasticemail.com",
              Username : "babyjha9988@gmail.com",
              Password : "B5EBB41E147657B8889FFB8557912625ACE9",
-             To : 'sapnak7508@gmail.com',
-             From : "babyjha9988@gmail.com",
+             To : 'sdhar2227@gmail.com',
+             From : email,
              Subject : "This is the subject",
              Body : "And this is the body"
             }).then(
                 message =>{
-                    if(message=='OK'){
+                    if(message ==='OK'){
 
                         swal("Successfull", "Your Data Successfull Received", "success");
                     }
