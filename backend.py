@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify, render_template
 from flask_mail import Mail, Message
-import logging
 
 app = Flask(__name__)
 
@@ -8,51 +7,40 @@ app = Flask(__name__)
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'sapnak7508@gmail.com'
-app.config['MAIL_PASSWORD'] = 'nn'  # Use your app password here
-# app.config['MAIL_DEFAULT_SENDER'] = 'sapnak7508@gmail.com'
+app.config['MAIL_USERNAME'] = 'sapnak7508@gmail.com'  # Your Gmail address
+app.config['MAIL_PASSWORD'] = 'nnec rhqc smfg czek'     # App password generated from Google
+app.config['MAIL_DEFAULT_SENDER'] = 'sapnak7508@gmail.com'  # Default sender email
 
 mail = Mail(app)
 
-# Enable logging
-logging.basicConfig(level=logging.DEBUG)
-
 @app.route('/')
-def home():
-    return render_template('index.html')
+def index():
+    return render_template('index.html')  # Assuming your form is saved as contact_form.html
 
 @app.route('/send-email', methods=['POST'])
 def send_email():
     try:
         data = request.json
-        
-        if not data:
-            return jsonify({"error": "No data provided"}), 400
 
-        # Extract values
+        # Extract form data
         name = data.get('name')
         email = data.get('email')
-        contact = data.get('contact')
         subject = data.get('subject')
         message = data.get('message')
-        # recipient = data.get('recipient')
 
-        # Log the incoming data
-        app.logger.debug(f"Received data: {data}")
+        if not (name and email and subject and message):
+            return jsonify({"error": "All fields are required."}), 400
 
-        if not email:
-            return jsonify({"error": "email is required"}), 400
+        # Compose email
+        msg = Message(subject=subject, recipients=[app.config['MAIL_USERNAME']])
+        msg.body = f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}"
 
-        body = f"Name: {name}\nEmail: {email}\nContact: {contact}\nMessage: {message}"
-
-        msg = Message(subject, recipients=[email])
-        msg.body = body
+        # Send email
         mail.send(msg)
-
         return jsonify({"message": "Email sent successfully"}), 200
 
     except Exception as e:
-        app.logger.error(f"Error sending email: {str(e)}")
+        print(f"Error: {e}")
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':

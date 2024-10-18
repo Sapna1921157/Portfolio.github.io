@@ -222,7 +222,7 @@
 
      <section class="contact" id="contact">
       <h2 class="heading">Contact <span>Me!</span><span class="animate scroll" style="--i:1;"></span></h2>
-      <form onsubmit="event.preventDefault(); sendEmail();">
+      <form  onsubmit="submitForm(event)" id="contactForm">
           <div class="input-box">
               <div class="input-field field">
                   <input type="text" id="name" placeholder="Full Name" name="name" required>
@@ -285,55 +285,33 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script>
-  async function sendEmail() {
-        var name = document.getElementById("name").value;
-        var email = document.getElementById("email").value;
-        var contact = document.getElementById("number").value;
-        var subject = document.getElementById("subject").value;
-        var message = document.getElementById("message").value;
+  async function submitForm(event) {
+      event.preventDefault(); // Prevent form submission
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const subject = document.getElementById("subject").value;
+      const message = document.getElementById("message").value;
 
-        // Validate email format
-        var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if (!emailPattern.test(email)) {
-            swal("Invalid Email", "Please enter a valid email address.", "error");
-            return;
-        }
+      try {
+          const response = await fetch('/send-email', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ name, email, subject, message })
+          });
 
-
-    console.log("Har har mahadev",name, email, contact, subject, message); // Debugging log
-
-if (!name || !email || !contact || !subject || !message) {
-    console.error("One or more form elements are missing");
-    return;
-}
-        // Send form data to the Flask backend
-        const response = await fetch('/send-email', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-            body: JSON.stringify({
-                name: name,
-                email: email,
-                contact: contact,
-                subject: subject,
-                message: message
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.message) {
-                swal("Success", "Your message was successfully sent!", "success");
-            } else {
-                swal("Error", "Failed to send your message. Please try again later.", "error");
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            swal("Error", "An error occurred while sending your message.", "error");
-        });
-
-    }
+          const data = await response.json();
+          if (response.ok) {
+              swal("Success", "Your message was successfully sent!", "success");
+          } else {
+              swal("Error", data.error || "Failed to send your message.", "error");
+          }
+      } catch (error) {
+          console.error('Error:', error);
+          swal("Error", "An error occurred while sending your message.", "error");
+      }
+  }
 </script>
 
 
