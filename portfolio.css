@@ -576,7 +576,7 @@ span {
   max-width: calc(33.33% - 20px); /* Prevent the items from overflowing */
   min-width: 250px; /* Set a minimum width to ensure content fits */
   height: 50px;
-  background: linear-gradient(rgb(78, 115, 227), #314C9F, transparent);
+  background: linear-gradient(rgb(78, 115, 227), var(--main-color));
   border: 0.5px solid #637cc5;
   color: white;
   cursor: pointer;
